@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.example</groupId>
-	<artifactId>GitService</artifactId>
+	<artifactId>GithubOrgSnapshot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>GitService</name>
 	<description>GitService</description>

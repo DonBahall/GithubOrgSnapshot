@@ -23,6 +23,25 @@ export default function App() {
         }
     }
 
+    const handleChange = (e) => {
+        const value = e.target.value;
+        const num = Number(value);
+
+        if (isNaN(num)) {
+            setError("Set number");
+            setLimit("");
+            return;
+        }
+
+        if (num < 1 || num > 20) {
+            setError("Value should be from 1 to 20");
+        } else {
+            setError("");
+        }
+
+        setLimit(value);
+    };
+
     return (
         <div className="container">
             <h1>🚀 GitHub Org Snapshot</h1>
@@ -42,9 +61,9 @@ export default function App() {
                     value={limit}
                     min="1"
                     max="20"
-                    onChange={(e) => setLimit(e.target.value)}
+                    onChange={handleChange}
                 />
-                <button onClick={load}>Load</button>
+                <button onClick={load} disabled={!!error || loading}>Load</button>
             </div>
 
             {loading && <p className="info">Loading...</p>}

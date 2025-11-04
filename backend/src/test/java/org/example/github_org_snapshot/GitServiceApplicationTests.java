@@ -1,4 +1,4 @@
-package org.example.gitservice;
+package org.example.github_org_snapshot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

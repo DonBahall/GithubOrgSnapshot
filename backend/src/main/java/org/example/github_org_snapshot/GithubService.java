@@ -1,10 +1,7 @@
-package org.example.gitservice;
+package org.example.github_org_snapshot;
 
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -12,12 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class GithubService {
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public List<RepoDto> getRepos(String org, int limit, String sort) {
+    public List<org.example.github_org_snapshot.RepoDto> getRepos(String org, int limit, String sort) {
+        if(limit < 0 || limit >= 20) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect value for 'limit' (must be 1–20)");
         String url = "https://api.github.com/orgs/" + org + "/repos?per_page=100";
 
         HttpHeaders headers = new HttpHeaders();
@@ -39,7 +38,7 @@ public class GithubService {
         return repos.stream()
                 .sorted(comparator.reversed())
                 .limit(limit)
-                .map(r -> new RepoDto(
+                .map(r -> new org.example.github_org_snapshot.RepoDto(
                         (String) r.get("name"),
                         (String) r.get("html_url"),
                         ((Number) r.get("stargazers_count")).intValue(),

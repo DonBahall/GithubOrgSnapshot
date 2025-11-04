@@ -1,4 +1,4 @@
-package org.example.gitservice;
+package org.example.github_org_snapshot;
 
 public record RepoDto(
         String name,
